@@ -72,6 +72,8 @@ function onRadioButtonChange() {
   var check4 = document.form1.radio4.checked;
   var check5 = document.form1.radio5.checked;
   var check6 = document.form1.radio6.checked;
+  var check7 = document.form1.radio7.checked;
+  var check8 = document.form1.radio8.checked;
 
   if (check1 == true) {
     FontFamily = "serif"; // 明朝体
@@ -79,7 +81,6 @@ function onRadioButtonChange() {
   else if (check2 == true) {
     FontFamily = "sans-serif"; // ゴシック体
   }
-
   if (check3 == true) {
     FontWeight = "normal";
   }
@@ -92,7 +93,13 @@ function onRadioButtonChange() {
   else if (check6 == true) {
     COLOR = "black";
   }
-  showStamp();
+  if (check7 == true) {
+    BkGround = "clear";
+  }
+  else if (check8 == true) {
+    BkGround = "rgb(255, 255, 255)";
+  }
+  showStamp(BkGround);
 }
 
 function showStamp(bkground) {
@@ -107,7 +114,7 @@ function showStamp(bkground) {
   ctx.rotate(ang * Math.PI / 180);
 
   ctx.beginPath();
-  if (typeof bkground !== "undefined") {
+  if (bkground !== "clear") {
     ctx.fillStyle = bkground;
     ctx.fillRect(-100, -100, 200, 200); // 背景を塗り込む
   }
@@ -162,10 +169,10 @@ function showStamp(bkground) {
 // canvasデータを画像に変換
 function chgImg(fmt) {
   if (fmt == "jpeg") {
-    showStamp("rgb(255, 255, 255)"); // 背景を白にする
+    // showStamp("rgb(255, 255, 255)"); // 背景を白にする
     var img = cv.toDataURL("image/jpeg", 1.0);
   } else {
-    showStamp();
+    // showStamp();
     var img = cv.toDataURL("image/png");
   }
   document.getElementById("newImg").src = img;
@@ -194,6 +201,12 @@ function chgImg(fmt) {
   <span>Color</span>
   <label><input type="radio" id="radio5" name="color" checked="checked" onchange="onRadioButtonChange()">Red</label>
   <label><input type="radio" id="radio6" name="color" onchange="onRadioButtonChange()">Black</label>
+</li>
+
+<li>
+  <span>背景</span>
+  <label><input type="radio" id="radio7" name="bkground" checked="checked" onchange="onRadioButtonChange()">透明</label>
+  <label><input type="radio" id="radio8" name="bkground" onchange="onRadioButtonChange()">白</label>
 </li>
 
 <li><span>上段</span><input type="text" name="name1" id="text1" oninput="showStamp()"></li>
