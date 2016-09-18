@@ -1,5 +1,5 @@
 # eStamp
-![サンプル](sample.png)
+![サンプル](https://github.com/wijie/eStamp/blob/images/sample.png)
 ### 電子日付印のWebアプリです。
 - WebブラウザでeStamp.htmlを開くだけで使用出来ます。
 - HTML5対応のブラウザが必要です。
