@@ -1,227 +1,255 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<title>eStamp</title>
-<style>
-  * {
-    margin:0;
-    padding:0;
-    <!-- text-align:center; -->
-  }
-  h1 {
-    font-size: 100%;
-  }
-  li {
-    list-style-type: none;
-    margin-bottom: 1em;
-  }
-  span {
-    display: inline-block;
-    width: 100px;
-  }
-  input {
-    margin-left: 1em;
-    width:130px;
-  }
-  input[type="radio"] {
-    width:30px;
-  }
-  input[type="button"] {
-    width:100px;
-  }
-</style>
-
-<script type="text/javascript">
-// NAME1とNAME2に名前を設定する
-var NAME1 = "営業部"
-var NAME2 = "金太郎"
-var ANGLE = "0";
-
-var CSIZE = 200, CR = CSIZE / 2;
-var WIDTH = 4;
-var cv, ctx;
-
-window.onload = function() {
-  cv = document.getElementById("cv");
-  ctx = cv.getContext("2d");
-  ctx.translate(CR, CR);
-
-  var d = new Date();
-  var year = d.getFullYear();
-  var month = d.getMonth() + 1;
-  var month = ("0" + month).slice(-2);
-  var date = d.getDate();
-  var date = ("0" + date).slice(-2);
-  var yymmdd = year + "-" + month + "-" + date;
-// delete d;
-
-  // 現在の日付をセットする
-  document.getElementById("date1").value = yymmdd;
-  document.getElementById("text1").value = NAME1;
-  document.getElementById("text2").value = NAME2;
-  document.getElementById("angle1").value = ANGLE;
-  onRadioButtonChange();
-}
-
-function onRadioButtonChange() {
-  var check1 = document.form1.radio1.checked;
-  var check2 = document.form1.radio2.checked;
-  var check3 = document.form1.radio3.checked;
-  var check4 = document.form1.radio4.checked;
-  var check5 = document.form1.radio5.checked;
-  var check6 = document.form1.radio6.checked;
-  var check7 = document.form1.radio7.checked;
-  var check8 = document.form1.radio8.checked;
-
-  if (check1 == true) {
-    FontFamily = "serif"; // 明朝体
-  }
-  else if (check2 == true) {
-    FontFamily = "sans-serif"; // ゴシック体
-  }
-  if (check3 == true) {
-    FontWeight = "normal";
-  }
-  else if (check4 == true) {
-    FontWeight = "bold";
-  }
-  if (check5 == true) {
-    COLOR = "red";
-  }
-  else if (check6 == true) {
-    COLOR = "black";
-  }
-  if (check7 == true) {
-    BkGround = "clear";
-  }
-  else if (check8 == true) {
-    BkGround = "rgb(255, 255, 255)";
-  }
-  showStamp(BkGround);
-}
-
-function showStamp(bkground) {
-  var str1FontSize = "50px";
-  var str2FontSize = "50px";
-  var datefontsize = "40px";
-// var FontStyle = "normal";
-  var ang = document.form1.angle1.value;
-
-  ctx.save();
-  ctx.clearRect(CR * -1, CR * -1, CSIZE, CSIZE);
-  ctx.rotate(ang * Math.PI / 180);
-
-  ctx.beginPath();
-  if (bkground !== "clear") {
-    ctx.fillStyle = bkground;
-    ctx.fillRect(-100, -100, 200, 200); // 背景を塗り込む
-  }
-  ctx.lineWidth = WIDTH;
-  ctx.strokeStyle = COLOR;
-  ctx.arc(0, 0, CR - (WIDTH / 2), 0, 2 * Math.PI, true);
-  ctx.moveTo(-95,-30);
-  ctx.lineTo(95,-30)
-  ctx.moveTo(-95,30);
-  ctx.lineTo(95,30)
-  ctx.stroke();
-
-// var str1 = text1.value; // IE11で動かない
-// var str2 = text2.value;
-  var str1 = document.form1.name1.value;
-  var str2 = document.form1.name2.value;
-  var r = CR - WIDTH;
-  var y = (r - 30) / 2 + 30;
-
-  ctx.fillStyle = COLOR;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-// ctx.font = FontStyle + " " + FontWeight + " " + str1FontSize + " " + FontFamily; // MS Edgeで正しく表示出来ない
-  ctx.font = FontWeight + " " + str1FontSize + " " + FontFamily;
-  ctx.fillText(str1, 0, y * -1, 100);
-
-// ctx.font = FontStyle + " " + FontWeight + " " + str2FontSize + " " + FontFamily;
-  ctx.fillText(str2, 0, y, 100);
-
-
-  if (document.form1.date.value == "") {
-    var date = "";
-  } else {
-    var str = document.form1.date.value.split("-");
-    var y = str[0]%100;
-    var m = str[1];
-    var d = str[2];
-    var date = "'" + y + "." + m + "." + d;
-  }
-
-  ctx.fillStyle = COLOR;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-//  ctx.font = FontStyle + " " + FontWeight + " " + datefontsize + "px " + FontFamily;
-  ctx.font = FontWeight + " " + datefontsize + " " + FontFamily;
-  ctx.fillText(date, 0, 0, 160);
-  ctx.restore();
-}
-
-// canvasデータを画像に変換
-function chgImg(fmt) {
-  if (fmt == "jpeg") {
-    // showStamp("rgb(255, 255, 255)"); // 背景を白にする
-    var img = cv.toDataURL("image/jpeg", 1.0);
-  } else {
-    // showStamp();
-    var img = cv.toDataURL("image/png");
-  }
-  document.getElementById("newImg").src = img;
-}
-</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>eStamp</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			<!-- text-align: center;
+			-->
+		}
+		
+		h1 {
+			font-size: 100%;
+		}
+		
+		li {
+			list-style-type: none;
+			margin-bottom: 1em;
+		}
+		
+		span {
+			display: inline-block;
+			width: 100px;
+		}
+		
+		input {
+			margin-left: 1em;
+			width: 130px;
+		}
+		
+		input[type="radio"] {
+			width: 30px;
+		}
+		
+		input[type="button"] {
+			width: 100px;
+		}
+	</style>
+	<script type="text/javascript">
+            // NAME1とNAME2に名前を設定する
+            var NAME1 = "営業部";
+            var NAME2 = "金太郎";
+            var ANGLE = "0";
+            var name1FontSize = "25px";
+            var name2FontSize = "25px";
+            var dateFontSize = "20px";
+            
+            var CSIZE = 100, CR = CSIZE / 2;
+            var WIDTH = 2;
+            var cv, ctx;
+            
+            window.onload = function() {
+              cv = document.getElementById("cv");
+              cv.width = CSIZE;
+              cv.height = CSIZE;
+              ctx = cv.getContext("2d");
+              ctx.translate(CR, CR);
+            
+              var d = new Date();
+              var year = d.getFullYear();
+              var month = d.getMonth() + 1;
+              var month = ("0" + month).slice(-2);
+              var date = d.getDate();
+              var date = ("0" + date).slice(-2);
+              var yymmdd = year + "-" + month + "-" + date;
+              // delete d;
+            
+              // 現在の日付をセットする
+              document.getElementById("date1").value = yymmdd;
+              document.getElementById("text1").value = NAME1;
+              document.getElementById("text2").value = NAME2;
+              document.getElementById("angle1").value = ANGLE;
+              onRadioButtonChange();
+            }
+            
+            function onRadioButtonChange() {
+              var check1 = document.form1.radio1.checked;
+              var check2 = document.form1.radio2.checked;
+              var check3 = document.form1.radio3.checked;
+              var check4 = document.form1.radio4.checked;
+              var check5 = document.form1.radio5.checked;
+              var check6 = document.form1.radio6.checked;
+              var check7 = document.form1.radio7.checked;
+              var check8 = document.form1.radio8.checked;
+            
+              if (check1 == true) {
+                FontFamily = "serif"; // 明朝体
+              }
+              else if (check2 == true) {
+                FontFamily = "sans-serif"; // ゴシック体
+              }
+              if (check3 == true) {
+                FontWeight = "normal";
+              }
+              else if (check4 == true) {
+                FontWeight = "bold";
+              }
+              if (check5 == true) {
+                COLOR = "red";
+              }
+              else if (check6 == true) {
+                COLOR = "black";
+              }
+              if (check7 == true) {
+                BkGround = "clear";
+              }
+              else if (check8 == true) {
+                BkGround = "rgb(255, 255, 255)";
+              }
+              showStamp(BkGround);
+            }
+            
+            function showStamp(bkground) {
+              // var FontStyle = "normal";
+              var ang = document.form1.angle1.value;
+              var y = CSIZE / 6;
+              var x = Math.sqrt(Math.pow(CR, 2) - Math.pow(y, 2));
+            
+              ctx.save();
+              ctx.clearRect(CR * -1, CR * -1, CSIZE, CSIZE);
+              ctx.rotate(ang * Math.PI / 180);
+            
+              ctx.beginPath();
+              if (bkground !== "clear") {
+                ctx.fillStyle = bkground;
+                ctx.fillRect(CR * -1, CR * -1, CSIZE, CSIZE); // 背景を塗り込む
+              }
+              ctx.lineWidth = WIDTH;
+              ctx.strokeStyle = COLOR;
+              ctx.arc(0, 0, CR - (WIDTH / 2), 0, 2 * Math.PI, true);
+              ctx.moveTo(x * -1, y * -1);
+              ctx.lineTo(x, y * -1);
+              ctx.moveTo(x * -1, y);
+              ctx.lineTo(x, y);
+              ctx.stroke();
+            
+              // var str1 = text1.value; // IE11で動かない
+              // var str2 = text2.value;
+              var str1 = document.form1.name1.value;
+              var str2 = document.form1.name2.value;
+              var r = CR - WIDTH;
+              var y = CSIZE / 3;
+              var l = x * 1;
+            
+              ctx.fillStyle = COLOR;
+              ctx.textAlign = "center";
+              ctx.textBaseline = "middle";
+            
+              // ctx.font = FontStyle + " " + FontWeight + " " + str1FontSize + " " + FontFamily; // MS Edgeで正しく表示出来ない
+              ctx.font = FontWeight + " " + name1FontSize + " " + FontFamily;
+              ctx.fillText(str1, 0, y * -1, l);
+            
+              // ctx.font = FontStyle + " " + FontWeight + " " + str2FontSize + " " + FontFamily;
+              ctx.font = FontWeight + " " + name2FontSize + " " + FontFamily;
+              ctx.fillText(str2, 0, y, l);
+            
+              if (document.form1.date.value == "") {
+                var date = "";
+              } else {
+                var str = document.form1.date.value.split("-");
+                var y = str[0]%100;
+                var m = str[1];
+                var d = str[2];
+                var date = "'" + y + "." + m + "." + d;
+              }
+            
+              ctx.fillStyle = COLOR;
+              ctx.textAlign = "center";
+              ctx.textBaseline = "middle";
+            
+              //  ctx.font = FontStyle + " " + FontWeight + " " + datefontsize + "px " + FontFamily;
+              ctx.font = FontWeight + " " + dateFontSize + " " + FontFamily;
+              ctx.fillText(date, 0, 0, 160);
+              ctx.restore();
+            }
+            
+            // canvasデータを画像に変換
+            function chgImg(fmt) {
+              if (fmt == "jpeg") {
+                // showStamp("rgb(255, 255, 255)"); // 背景を白にする
+                var img = cv.toDataURL("image/jpeg", 1.0);
+              } else {
+                // showStamp();
+                var img = cv.toDataURL("image/png");
+              }
+              document.getElementById("newImg").src = img;
+            }
+        </script>
 </head>
 
 <body>
-<canvas id="cv" width="200" height="200"></canvas>
-<form name="form1" method="get">
-<br>
-<ul>
-<li>
-  <span>Font</span>
-  <label><input type="radio" id="radio1" name="font" checked="checked" onchange="onRadioButtonChange()">serif</label>
-  <label><input type="radio" id="radio2" name="font" onchange="onRadioButtonChange()">sans-serif</label>
-</li>
+	<!--<canvas id="cv" width="200" height="200"></canvas>-->
+	<canvas id="cv"></canvas>
+	<form name="form1" method="get">
+		<br>
+		<ul>
+			<li> <span>Font</span>
 
-<li>
-  <span>Weight</span>
-  <label><input type="radio" id="radio3" name="weight" onchange="onRadioButtonChange()">normal</label>
-  <label><input type="radio" id="radio4" name="weight" checked="checked" onchange="onRadioButtonChange()">bold</label>
-</li>
+				<label>
+                        <input type="radio" id="radio1" name="font" checked="checked" onchange="onRadioButtonChange()">serif</label>
+				<label>
+                        <input type="radio" id="radio2" name="font" onchange="onRadioButtonChange()">sans-serif</label>
+			</li>
+			<li> <span>Weight</span>
 
-<li>
-  <span>Color</span>
-  <label><input type="radio" id="radio5" name="color" checked="checked" onchange="onRadioButtonChange()">Red</label>
-  <label><input type="radio" id="radio6" name="color" onchange="onRadioButtonChange()">Black</label>
-</li>
+				<label>
+                        <input type="radio" id="radio3" name="weight" onchange="onRadioButtonChange()">normal</label>
+				<label>
+                        <input type="radio" id="radio4" name="weight" checked="checked" onchange="onRadioButtonChange()">bold</label>
+			</li>
+			<li> <span>Color</span>
 
-<li>
-  <span>背景</span>
-  <label><input type="radio" id="radio7" name="bkground" checked="checked" onchange="onRadioButtonChange()">透明</label>
-  <label><input type="radio" id="radio8" name="bkground" onchange="onRadioButtonChange()">白</label>
-</li>
+				<label>
+                        <input type="radio" id="radio5" name="color" checked="checked" onchange="onRadioButtonChange()">Red</label>
+				<label>
+                        <input type="radio" id="radio6" name="color" onchange="onRadioButtonChange()">Black</label>
+			</li>
+			<li> <span>背景</span>
 
-<li><span>上段</span><input type="text" name="name1" id="text1" oninput="showStamp()"></li>
-<li><span>下段</span><input type="text" name="name2" id="text2" oninput="showStamp()"></li>
-<li><span>日付</span><input type="date" name="date" id="date1" oninput="showStamp()"></li>
-<li><span>角度</span><input type="text" name="angle" id="angle1" oninput="showStamp()"></li>
-</ul>
-</form>
-<p>※Canvas内の画像を保存できないブラウザでは、下のボタンで画像に変換して下さい。</p>
-<br>
-<li>
-  <input type="button" name="button1" value="PNGに変換" onclick="chgImg('png')">
-  <input type="button" name="button2" value="JPEGに変換" onclick="chgImg('jpeg')">
-</li>
-<div><img id="newImg"></div>
-<!--  <div id="output"></div> -->
+				<label>
+                        <input type="radio" id="radio7" name="bkground" checked="checked" onchange="onRadioButtonChange()">透明</label>
+				<label>
+                        <input type="radio" id="radio8" name="bkground" onchange="onRadioButtonChange()">白</label>
+			</li>
+			<li><span>上段</span>
+				<input type="text" name="name1" id="text1" oninput="showStamp()">
+			</li>
+			<li><span>下段</span>
+				<input type="text" name="name2" id="text2" oninput="showStamp()">
+			</li>
+			<li><span>日付</span>
+				<input type="date" name="date" id="date1" oninput="showStamp()">
+			</li>
+			<li><span>角度</span>
+				<input type="text" name="angle" id="angle1" oninput="showStamp()">
+			</li>
+		</ul>
+	</form>
+	<p>※Canvas内の画像を保存できないブラウザでは、下のボタンで画像に変換して下さい。</p>
+	<br>
+	<li>
+		<input type="button" name="button1" value="PNGに変換" onclick="chgImg('png')">
+		<input type="button" name="button2" value="JPEGに変換" onclick="chgImg('jpeg')">
+	</li>
+	<div>
+		<img id="newImg">
+	</div>
+	<!-- <div id="output"></div> -->
 </body>
+
 </html>
