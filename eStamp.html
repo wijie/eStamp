@@ -12,30 +12,30 @@
 			<!-- text-align: center;
 			-->
 		}
-		
+
 		h1 {
 			font-size: 100%;
 		}
-		
+
 		li {
 			list-style-type: none;
 			margin-bottom: 1em;
 		}
-		
+
 		span {
 			display: inline-block;
 			width: 100px;
 		}
-		
+
 		input {
 			margin-left: 1em;
 			width: 130px;
 		}
-		
+
 		input[type="radio"] {
 			width: 30px;
 		}
-		
+
 		input[type="button"] {
 			width: 100px;
 		}
@@ -48,18 +48,18 @@
             var name1FontSize = "25px";
             var name2FontSize = "25px";
             var dateFontSize = "20px";
-            
+
             var CSIZE = 100, CR = CSIZE / 2;
             var WIDTH = 2;
             var cv, ctx;
-            
+
             window.onload = function() {
               cv = document.getElementById("cv");
               cv.width = CSIZE;
               cv.height = CSIZE;
               ctx = cv.getContext("2d");
               ctx.translate(CR, CR);
-            
+
               var d = new Date();
               var year = d.getFullYear();
               var month = d.getMonth() + 1;
@@ -68,7 +68,7 @@
               var date = ("0" + date).slice(-2);
               var yymmdd = year + "-" + month + "-" + date;
               // delete d;
-            
+
               // 現在の日付をセットする
               document.getElementById("date1").value = yymmdd;
               document.getElementById("text1").value = NAME1;
@@ -76,7 +76,7 @@
               document.getElementById("angle1").value = ANGLE;
               onRadioButtonChange();
             }
-            
+
             function onRadioButtonChange() {
               var check1 = document.form1.radio1.checked;
               var check2 = document.form1.radio2.checked;
@@ -86,7 +86,7 @@
               var check6 = document.form1.radio6.checked;
               var check7 = document.form1.radio7.checked;
               var check8 = document.form1.radio8.checked;
-            
+
               if (check1 == true) {
                 FontFamily = "serif"; // 明朝体
               }
@@ -113,17 +113,17 @@
               }
               showStamp(BkGround);
             }
-            
+
             function showStamp(bkground) {
               // var FontStyle = "normal";
               var ang = document.form1.angle1.value;
               var y = CSIZE / 6;
               var x = Math.sqrt(Math.pow(CR, 2) - Math.pow(y, 2));
-            
+
               ctx.save();
               ctx.clearRect(CR * -1, CR * -1, CSIZE, CSIZE);
               ctx.rotate(ang * Math.PI / 180);
-            
+
               ctx.beginPath();
               if (bkground !== "clear") {
                 ctx.fillStyle = bkground;
@@ -137,7 +137,7 @@
               ctx.moveTo(x * -1, y);
               ctx.lineTo(x, y);
               ctx.stroke();
-            
+
               // var str1 = text1.value; // IE11で動かない
               // var str2 = text2.value;
               var str1 = document.form1.name1.value;
@@ -145,19 +145,19 @@
               var r = CR - WIDTH;
               var y = CSIZE / 3;
               var l = x * 1;
-            
+
               ctx.fillStyle = COLOR;
               ctx.textAlign = "center";
               ctx.textBaseline = "middle";
-            
+
               // ctx.font = FontStyle + " " + FontWeight + " " + str1FontSize + " " + FontFamily; // MS Edgeで正しく表示出来ない
               ctx.font = FontWeight + " " + name1FontSize + " " + FontFamily;
               ctx.fillText(str1, 0, y * -1, l);
-            
+
               // ctx.font = FontStyle + " " + FontWeight + " " + str2FontSize + " " + FontFamily;
               ctx.font = FontWeight + " " + name2FontSize + " " + FontFamily;
               ctx.fillText(str2, 0, y, l);
-            
+
               if (document.form1.date.value == "") {
                 var date = "";
               } else {
@@ -167,17 +167,17 @@
                 var d = str[2];
                 var date = "'" + y + "." + m + "." + d;
               }
-            
+
               ctx.fillStyle = COLOR;
               ctx.textAlign = "center";
               ctx.textBaseline = "middle";
-            
+
               //  ctx.font = FontStyle + " " + FontWeight + " " + datefontsize + "px " + FontFamily;
               ctx.font = FontWeight + " " + dateFontSize + " " + FontFamily;
               ctx.fillText(date, 0, 0, 160);
               ctx.restore();
             }
-            
+
             // canvasデータを画像に変換
             function chgImg(fmt) {
               if (fmt == "jpeg") {
@@ -208,9 +208,9 @@
 			<li> <span>Weight</span>
 
 				<label>
-                        <input type="radio" id="radio3" name="weight" onchange="onRadioButtonChange()">normal</label>
+                        <input type="radio" id="radio3" name="weight" checked="checked" onchange="onRadioButtonChange()">normal</label>
 				<label>
-                        <input type="radio" id="radio4" name="weight" checked="checked" onchange="onRadioButtonChange()">bold</label>
+                        <input type="radio" id="radio4" name="weight" onchange="onRadioButtonChange()">bold</label>
 			</li>
 			<li> <span>Color</span>
 
