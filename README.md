@@ -1,10 +1,9 @@
 # eStamp
 ![サンプル](https://github.com/wijie/eStamp/blob/images/sample.png)
 ### 電子日付印のWebアプリです。
-- WebブラウザでeStamp.htmlを開くだけで使用出来ます。
-- マルチプラットフォームで使用できます。(Windows, Linux, macOS, etc...)
-- HTML5対応のブラウザが必要です。
-- 右クリックで画像をコピー又は保存して下さい。
-- デ￼フォルトの名前を変更する場合は、htmlファイル内の変数 NAME1, NAME2を変更して下さい。
+- Webアプリなのでマルチプラットフォームです。(Windows, Linux, macOS, etc...)
+- HTML5対応のブラウザで実行して下さい。(IE9以降, MS Edge, Google Chrome, Firefox 等)
+- 印影を右クリックでコピー又は保存して下さい。
+- デ￼フォルトの名前は、htmlファイル内の変数 NAME1, NAME2を変更して下さい。
 
-[試用出来ます.](http://wijie.github.io/eStamp)
+[こちら](http://wijie.github.io/eStamp)でお試し出来ます。
