@@ -38,7 +38,7 @@
     }
 
     input[type="button"] {
-      width: 100px;
+      width: 80px;
     }
   </style>
 
@@ -87,10 +87,10 @@
       onRadioButtonChange();
     }
 
-    window.onbeforeunload = function() {
-      storage.setItem("eStamp.Name1", NAME1);
-      storage.setItem("eStamp.Name2", NAME2);
-    }
+    // window.onbeforeunload = function() {
+    //   storage.setItem("eStamp.Name1", NAME1);
+    //   storage.setItem("eStamp.Name2", NAME2);
+    // }
 
     function onRadioButtonChange() {
       var check1 = document.form1.radio1.checked;
@@ -194,6 +194,11 @@
       ctx.restore();
     }
 
+    function saveName() {
+      storage.setItem("eStamp.Name1", NAME1);
+      storage.setItem("eStamp.Name2", NAME2);
+    }
+
     // canvasデータを画像に変換
     function chgImg() {
       var img = cv.toDataURL("image/png");
@@ -234,6 +239,7 @@
       </li>
       <li><span>上段</span>
         <input type="text" name="name1" id="text1" oninput="onRadioButtonChange()">
+        <input type="button" name="button1" value="名前を保存" onclick="saveName()">
       </li>
       <li><span>下段</span>
         <input type="text" name="name2" id="text2" oninput="onRadioButtonChange()">
@@ -241,7 +247,7 @@
       <li><span>日付</span>
         <input type="date" name="date" id="date1" oninput="onRadioButtonChange()">
       </li>
-      <li><span>角度</span>
+      <li><span>傾き</span>
         <input type="text" name="angle" id="angle1" oninput="onRadioButtonChange()">
       </li>
     </ul>
@@ -249,7 +255,7 @@
   <p>※Canvas内の画像を保存できないブラウザでは、下のボタンで画像に変換して下さい。</p>
   <br>
   <li>
-    <input type="button" name="button1" value="画像に変換" onclick="chgImg()">
+    <input type="button" name="button2" value="画像に変換" onclick="chgImg()">
   </li>
   <div>
     <img id="newImg">
